@@ -1,0 +1,39 @@
+name: Terraform Deploy
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ap-south-1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - run: ls -R   # debug (optional)
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: Terraform-3-tier-project
+
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: Terraform-3-tier-project
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+        working-directory: Terraform-3-tier-project
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
+        working-directory: Terraform-3-tier-project
