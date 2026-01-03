@@ -183,7 +183,7 @@ resource "aws_route_table_association" "prvivate-8b" {
 }
 
 #keypair
-resource "aws_key_pair" "my_key" {
-  key_name   = "test"           # Name of the key pair in AWS
-  public_key = file("~/.ssh/my-terraform-key.pub")    # Path to your local public key
-}
+# resource "aws_key_pair" "my_key" {
+ # key_name   = "test"           # Name of the key pair in AWS
+ # public_key = file("~/.ssh/my-terraform-key.pub")    # Path to your local public key
+# }
